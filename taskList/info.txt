@@ -1,0 +1,5 @@
+1. Create HTML frame
+2. Add Materialize css and js
+3. Add Jquery CDN css
+4. Add Fontawesome CDN css
+5. Add our custom js file
