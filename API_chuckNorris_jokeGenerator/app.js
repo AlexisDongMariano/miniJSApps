@@ -6,9 +6,10 @@ function getJokes(e) {
 
   xhr = new XMLHttpRequest();
   xhr.open('GET', `http://api.icndb.com/jokes/random/${number}`, true);
+  console.log('GET JOKES:', this);
 
   xhr.onload = function () {
-    console.log(this.readyState);
+    console.log('INSIDE ONLOAD:', this);
     if (this.status === 200) {
       const response = JSON.parse(this.responseText);
       console.log(response);
