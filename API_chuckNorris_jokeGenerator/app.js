@@ -12,7 +12,6 @@ function getJokes(e) {
     console.log('INSIDE ONLOAD:', this);
     if (this.status === 200) {
       const response = JSON.parse(this.responseText);
-      console.log(response);
 
       let output = '';
       if (response.type === 'success') {
