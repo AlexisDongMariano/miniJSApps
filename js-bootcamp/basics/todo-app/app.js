@@ -42,16 +42,21 @@ const filters = {
     searchText: ''
 };
 
-const todosLeftCount = todos.filter(todo => {
-    return !todo.completed;
-});
 
-p_todosLeft = document.createElement('h2');
-p_todosLeft.textContent = `You have ${todosLeftCount.length} todos left`;
-document.body.appendChild(p_todosLeft);
 
 const displayTodos = todos => {
+
+    const todosLeftCount = todos.filter(todo => {
+        return !todo.completed;
+    });
+
     div_todos.innerHTML = '';
+
+    p_todosLeft = document.createElement('h2');
+    p_todosLeft.textContent = `You have ${todosLeftCount.length} todos left`;
+    div_todos.appendChild(p_todosLeft);
+
+
     todos.forEach(todo => {
         let p_todo = document.createElement('p');
         p_todo.textContent = todo.text;
@@ -59,14 +64,16 @@ const displayTodos = todos => {
     })
 }
 
-displayTodos(todos);
-
 function filterText(todos, filters) {
-    filteredTodos = todos.filter(todo => {
+    const filteredTodos = todos.filter(todo => {
         return todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
     })
 
     displayTodos(filteredTodos);
 
 }
+
+
+
+displayTodos(todos);
 
