@@ -15,6 +15,11 @@ document.querySelector('#name-form').addEventListener('submit', e => {
     e.preventDefault();
 })
 
+document.querySelector('#filter-by').addEventListener('change', e => {
+    console.log(e);
+    console.log(e.target.value);
+});
+
 const filters = {
     searchText: ''
 };

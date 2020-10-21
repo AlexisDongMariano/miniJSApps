@@ -10,15 +10,16 @@
 <body>
     <h1>Todos</h1>
     <input id="search-text" type="text" placeholder="Filter todos">
+    <label>
+        <input type="checkbox" name="hide-completed" id="hide-completed">
+        Hide Completed
+    </label>
     <div id="todos"></div>
     <form id="add-todo">
         <input type="text" name="newTodo" placeholder="Add a new todo">
         <button>Add Todo</button>
     </form>
-    <label>
-        <input type="checkbox" name="hide-completed" id="hide-completed">
-        Hide Completed
-    </label>
+
 
 
     <script src="app.js"></script>

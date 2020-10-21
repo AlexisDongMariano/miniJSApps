@@ -44,8 +44,7 @@ chkbox_hideCompleted = document.querySelector('#hide-completed');
 // Event listeners
 input_search.addEventListener('input', (e) => {
     filters.searchText = e.target.value;
-    console.log(filters.searchText);
-    filterText(todos, filters);
+    displayTodos(todos);
 });
 
 form_addTodo.addEventListener('submit', e => {
@@ -56,34 +55,34 @@ form_addTodo.addEventListener('submit', e => {
 });
 
 chkbox_hideCompleted.addEventListener('change', e => {
-    let checkedTodos = todos;
-    if (e.target.checked) {
-        console.log('checked');
-        checkedTodos = todos.filter(todo => {
-            return !todo.completed;
-        })
-    }
-    displayTodos(checkedTodos);
+    filters.hideCompleted = e.target.checked;
+    displayTodos(todos);
+
 });
 
 
 const filters = {
-    searchText: ''
+    searchText: '',
+    hideCompleted: false
 };
 
 
 const displayTodos = todos => {
-    const todosLeftCount = todos.filter(todo => {
+    let filteredTodos = filterText(todos, filters);
+    filteredTodos = hideComplete(filteredTodos, filters);
+
+    const todosLeftCount = filteredTodos.filter(todo => {
         return !todo.completed;
     });
 
     div_todos.innerHTML = '';
 
     p_todosLeft = document.createElement('h2');
+
     p_todosLeft.textContent = `You have ${todosLeftCount.length} todos left`;
     div_todos.appendChild(p_todosLeft);
 
-    todos.forEach(todo => {
+    filteredTodos.forEach(todo => {
         let p_todo = document.createElement('p');
         p_todo.textContent = todo.text;
         div_todos.appendChild(p_todo);
@@ -101,10 +100,16 @@ function addTodo(todos, newTodo) {
 }
 
 function filterText(todos, filters) {
-    const filteredTodos = todos.filter(todo => {
+    return todos.filter(todo => {
         return todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
-    })
-    displayTodos(filteredTodos);
+    });
+}
+
+function hideComplete(todos, filters) {
+    return todos.filter(todo => {
+        // return if the the filter is set to False or the todo is not yet completed
+        return !filters.hideCompleted || !todo.completed;
+    });
 }
 
 
