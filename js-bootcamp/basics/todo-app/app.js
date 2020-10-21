@@ -26,10 +26,20 @@ const todos = [
 // 1. setup a div contain for todos
 // 2. setup filters (searchText) and wire up a new filter input to change it
 // 3. Create a renderTodos function to render and rerender the latest filtered data
+// 1. Create a form with a single input for todo text
+// 2. Setup and submit handler and cancel the default action
+// 3. Add a new item to the todos array with that text data (completed value of false)
+// 4. Rerender the application
+// 1. Create a checkbox and setup event listener --> "Hide completed"
+// 2. Create new hideCompleted filter (default false)
+// 3. Update hideCompleted a rerenderer list on checkbox change
+// 4. Setup renderTodos to remove completed items
 
 // UI Components
 input_search = document.querySelector('#search-text');
 div_todos = document.querySelector('#todos');
+form_addTodo = document.querySelector('#add-todo');
+chkbox_hideCompleted = document.querySelector('#hide-completed');
 
 // Event listeners
 input_search.addEventListener('input', (e) => {
@@ -38,14 +48,31 @@ input_search.addEventListener('input', (e) => {
     filterText(todos, filters);
 });
 
+form_addTodo.addEventListener('submit', e => {
+    addTodo(todos, e.target.newTodo.value);
+    e.target.newTodo.value = '';
+    displayTodos(todos);
+    e.preventDefault();
+});
+
+chkbox_hideCompleted.addEventListener('change', e => {
+    let checkedTodos = todos;
+    if (e.target.checked) {
+        console.log('checked');
+        checkedTodos = todos.filter(todo => {
+            return !todo.completed;
+        })
+    }
+    displayTodos(checkedTodos);
+});
+
+
 const filters = {
     searchText: ''
 };
 
 
-
 const displayTodos = todos => {
-
     const todosLeftCount = todos.filter(todo => {
         return !todo.completed;
     });
@@ -56,7 +83,6 @@ const displayTodos = todos => {
     p_todosLeft.textContent = `You have ${todosLeftCount.length} todos left`;
     div_todos.appendChild(p_todosLeft);
 
-
     todos.forEach(todo => {
         let p_todo = document.createElement('p');
         p_todo.textContent = todo.text;
@@ -64,15 +90,22 @@ const displayTodos = todos => {
     })
 }
 
+
+function addTodo(todos, newTodo) {
+    todos.push(
+        {
+            text: newTodo,
+            completed: false
+        }
+    );
+}
+
 function filterText(todos, filters) {
     const filteredTodos = todos.filter(todo => {
         return todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
     })
-
     displayTodos(filteredTodos);
-
 }
-
 
 
 displayTodos(todos);

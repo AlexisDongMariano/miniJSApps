@@ -9,6 +9,12 @@ const notes = [{
     body: 'Get a new seat'
 }]
 
+
+document.querySelector('#name-form').addEventListener('submit', e => {
+    console.log(e.target.elements.firstName.value);
+    e.preventDefault();
+})
+
 const filters = {
     searchText: ''
 };
