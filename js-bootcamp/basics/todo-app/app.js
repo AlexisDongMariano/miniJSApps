@@ -1,25 +1,8 @@
-const todos = [
-    {
-        text: 'Order Cat food',
-        completed: false
-    },
-    {
-        text: 'Clean kitchen',
-        completed: true
-    },
-    {
-        text: 'Buy food',
-        completed: true
-    },
-    {
-        text: 'Do work',
-        completed: false
-    },
-    {
-        text: 'Exercise',
-        completed: true
-    }
-]
+let todos = [];
+
+const todosJSON = localStorage.getItem('todos');
+if (todosJSON !== null)
+    todos = JSON.parse(todosJSON);
 
 // You have x todos left (p element)
 // Add a p element for each above (use text value)
@@ -34,6 +17,9 @@ const todos = [
 // 2. Create new hideCompleted filter (default false)
 // 3. Update hideCompleted a rerenderer list on checkbox change
 // 4. Setup renderTodos to remove completed items
+// 1. Delete dummy data
+// 2. Read and parse the data when the app starts up
+// 3. stringify and write the date when the data is addd
 
 // UI Components
 input_search = document.querySelector('#search-text');
@@ -84,7 +70,13 @@ const displayTodos = todos => {
 
     filteredTodos.forEach(todo => {
         let p_todo = document.createElement('p');
-        p_todo.textContent = todo.text;
+
+        if (todo.text.length > 0)
+            p_todo.textContent = todo.text;
+        else
+            p_todo.textContent = 'empty todo';
+
+
         div_todos.appendChild(p_todo);
     })
 }
@@ -97,6 +89,7 @@ function addTodo(todos, newTodo) {
             completed: false
         }
     );
+    localStorage.setItem('todos', JSON.stringify(todos));
 }
 
 function filterText(todos, filters) {
