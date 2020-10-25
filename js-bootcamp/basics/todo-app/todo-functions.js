@@ -38,6 +38,15 @@ const generateSummaryDOM = filteredTodos => {
     div_todos.appendChild(p_todosLeft);
 };
 
+// Remove a single todo
+const removeTodo = id => {
+    const todoIndex = todos.findIndex(todo => {
+        return todo.id === id;
+    });
+
+    if (todoIndex > -1)
+        todos.splice(todoIndex, 1);
+}
 
 const generateTodoDOM = todo => {
     // declare UI elements
@@ -49,6 +58,11 @@ const generateTodoDOM = todo => {
     // setup elements
     chk_todo.setAttribute('type', 'checkbox');
     btn_removeTodo.textContent = 'x';
+    btn_removeTodo.addEventListener('click', () => {
+        removeTodo(todo.id);
+        saveTodos(todos);
+        displayTodos(todos);
+    });
 
     div_todo.appendChild(chk_todo);
 
