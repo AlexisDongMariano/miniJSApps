@@ -48,6 +48,16 @@ const removeTodo = id => {
         todos.splice(todoIndex, 1);
 }
 
+
+const toggleTodo = id => {
+    const todo = todos.find(todo => {
+        return todo.id == id;
+    });
+
+    if (todo !== undefined)
+        todo.completed = !todo.completed;
+}
+
 const generateTodoDOM = todo => {
     // declare UI elements
     const div_todo = document.createElement('div');
@@ -57,6 +67,15 @@ const generateTodoDOM = todo => {
 
     // setup elements
     chk_todo.setAttribute('type', 'checkbox');
+    chk_todo.checked = todo.completed;
+    div_todo.appendChild(chk_todo);
+    chk_todo.addEventListener('change', e => {
+        console.log('TODO:', todo);
+        toggleTodo(todo.id);
+        saveTodos(todos);
+        displayTodos(todos)
+    });
+
     btn_removeTodo.textContent = 'x';
     btn_removeTodo.addEventListener('click', () => {
         removeTodo(todo.id);
@@ -64,7 +83,7 @@ const generateTodoDOM = todo => {
         displayTodos(todos);
     });
 
-    div_todo.appendChild(chk_todo);
+
 
     // generate the todo text
     if (todo.text.length > 0)
