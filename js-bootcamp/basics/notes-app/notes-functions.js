@@ -26,7 +26,8 @@ const removeNote = function (id) {
 // Generate the DOM structure for a note
 const generateNoteDOM = function (note) {
     const div_note = document.createElement('div')
-    const h4_new = document.createElement('span');
+    // const newNote = document.createElement('span');
+    const newNote = document.createElement('a');
     const button = document.createElement('button');
 
     // setup the remove note button
@@ -38,12 +39,16 @@ const generateNoteDOM = function (note) {
         renderNotes(notes, filters);
     });
 
-    if (note.title.length > 0)
-        h4_new.textContent = note.title;
-    else
-        h4_new.textContent = 'unnamed note'
+    if (note.title.length > 0) {
+        newNote.textContent = note.title;
 
-    div_note.appendChild(h4_new);
+    }
+    else
+        newNote.textContent = 'unnamed note'
+
+    newNote.setAttribute('href', `/edit.html#${note.id}`);
+
+    div_note.appendChild(newNote);
 
     return div_note;
 }

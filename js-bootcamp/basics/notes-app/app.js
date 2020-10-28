@@ -4,10 +4,10 @@ const filters = {
     searchText: ''
 };
 
-document.querySelector('#name-form').addEventListener('submit', e => {
-    console.log(e.target.elements.firstName.value);
-    e.preventDefault();
-});
+// document.querySelector('#name-form').addEventListener('submit', e => {
+//     console.log(e.target.elements.firstName.value);
+//     e.preventDefault();
+// });
 
 document.querySelector('#filter-by').addEventListener('change', e => {
     console.log(e);
@@ -21,19 +21,20 @@ document.querySelector('#search-text').addEventListener('input', (e) => {
 
 document.querySelector('#add-note').addEventListener('click', (e) => {
     console.log(`I'm adding a new note.`);
+    const id = uuidv4();
     notes.push({
-        id: uuidv4(),
+        id: id,
         title: '',
         body: ''
     });
 
     saveNotes(notes);
-    renderNotes(notes, filters);
+    location.assign(`/edit.html#${id}`);
 });
 
-document.querySelector('#input-note').addEventListener('input', (e) => {
-    console.log(e.target.value);
-    console.log(notes);
-});
+// document.querySelector('#input-note').addEventListener('input', (e) => {
+//     console.log(e.target.value);
+//     console.log(notes);
+// });
 
 renderNotes(notes, filters);
