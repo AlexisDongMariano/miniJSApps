@@ -1,10 +1,9 @@
 const noteId = location.hash.substring(1);
-const notes = getSavedNotes();
-const note = notes.find(note => {
+let notes = getSavedNotes();
+let note = notes.find(note => {
     return note.id === noteId;
 });
 
-console.log(note);
 
 if (note === undefined)
     location.assign('/index.html');
@@ -31,4 +30,22 @@ btn_remove.addEventListener('click', e => {
     removeNote(noteId);
     saveNotes(notes);
     location.assign('/index.html');
+});
+
+window.addEventListener('storage', e => {
+    console.log('new data changes');
+    console.log(e);
+
+    if (e.key === 'notes') {
+        notes = JSON.parse(e.newValue);
+        note = notes.find(note => {
+            return note.id === noteId;
+        });
+
+        if (note === undefined)
+            location.assign('/index.html');
+
+        inp_title.value = note.title;
+        inp_body.value = note.body;
+    }
 });

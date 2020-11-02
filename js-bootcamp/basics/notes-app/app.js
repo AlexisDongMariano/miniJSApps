@@ -1,4 +1,4 @@
-const notes = getSavedNotes();
+let notes = getSavedNotes();
 
 const filters = {
     searchText: ''
@@ -38,3 +38,9 @@ document.querySelector('#add-note').addEventListener('click', (e) => {
 // });
 
 renderNotes(notes, filters);
+
+window.addEventListener('storage', e => {
+    if (e.key === 'notes')
+        notes = JSON.parse(e.newValue);
+    renderNotes(notes, filters);
+});
