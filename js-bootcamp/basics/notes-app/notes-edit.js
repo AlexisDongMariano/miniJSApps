@@ -1,5 +1,6 @@
 const noteId = location.hash.substring(1);
 let notes = getSavedNotes();
+
 let note = notes.find(note => {
     return note.id === noteId;
 });
@@ -12,17 +13,24 @@ if (note === undefined)
 const inp_title = document.querySelector('#note-title');
 const inp_body = document.querySelector('#note-body');
 const btn_remove = document.querySelector('#remove-note');
+const last_edited = document.querySelector('#last-edited');
 
 inp_title.value = note.title;
 inp_body.value = note.body;
+last_edited.textContent = changeLastEdited(note.updatedAt);
+
 
 inp_title.addEventListener('input', e => {
     note.title = e.target.value;
+    note.updatedAt = moment().valueOf();
+    last_edited.textContent = changeLastEdited(note.updatedAt);
     saveNotes(notes);
 });
 
 inp_body.addEventListener('input', e => {
     note.body = e.target.value;
+    note.updatedAt = moment().valueOf();
+    last_edited.textContent = changeLastEdited(note.updatedAt);
     saveNotes(notes);
 });
 
@@ -47,5 +55,6 @@ window.addEventListener('storage', e => {
 
         inp_title.value = note.title;
         inp_body.value = note.body;
+        last_edited.textContent = changeLastEdited(note.updatedAt);
     }
 });
