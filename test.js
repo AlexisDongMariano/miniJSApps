@@ -1,11 +1,8 @@
-test();
-test1();
+const team = ['Tyler', 'Porter'];
 
-function test() {
-    console.log('test');
-}
+teamCount = team.length;
+const ltOrEqFour = () => `Team size: ${teamCount}`;
+const gtFour = () => `Too many people on your team`;
+const message = teamCount <= 4 ? ltOrEqFour() : gtFour();
 
-const test1 = () => {
-    console.log('test1');
-}
-
+console.log(message);

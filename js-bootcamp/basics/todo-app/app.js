@@ -1,3 +1,5 @@
+'use strict'
+
 let todos = getTodos();
 
 const filters = {
@@ -13,7 +15,7 @@ form_addTodo = document.querySelector('#add-todo');
 chkbox_hideCompleted = document.querySelector('#hide-completed');
 
 // Event listeners
-input_search.addEventListener('input', (e) => {
+input_search.addEventListener('input', e => {
     filters.searchText = e.target.value;
     displayTodos(todos);
 });

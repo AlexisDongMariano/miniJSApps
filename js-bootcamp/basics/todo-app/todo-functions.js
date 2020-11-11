@@ -1,10 +1,15 @@
+'use strict'
+
 // get todos from localStorage
 const getTodos = () => {
     const todosJSON = localStorage.getItem('todos');
-    if (todosJSON !== null)
-        return JSON.parse(todosJSON);
-    else
+
+    try {
+        return todosJSON ? JSON.parse(todosJSON) : [];
+    } catch (e) {
         return [];
+    }
+
 };
 
 // save todos to localStorage
@@ -27,22 +32,17 @@ const addTodo = (todos, newTodo) => {
 
 
 const generateSummaryDOM = filteredTodos => {
-    const todosLeftCount = filteredTodos.filter(todo => {
-        return !todo.completed;
-    });
+    const todosLeftCount = filteredTodos.filter(todo => !todo.completed);
 
     div_todos.innerHTML = '';
     p_todosLeft = document.createElement('h2');
-
     p_todosLeft.textContent = `You have ${todosLeftCount.length} todos left`;
     div_todos.appendChild(p_todosLeft);
 };
 
 // Remove a single todo
 const removeTodo = id => {
-    const todoIndex = todos.findIndex(todo => {
-        return todo.id === id;
-    });
+    const todoIndex = todos.findIndex(todo => todo.id === id);
 
     if (todoIndex > -1)
         todos.splice(todoIndex, 1);
@@ -50,11 +50,9 @@ const removeTodo = id => {
 
 
 const toggleTodo = id => {
-    const todo = todos.find(todo => {
-        return todo.id == id;
-    });
+    const todo = todos.find(todo => todo.id == id);
 
-    if (todo !== undefined)
+    if (todo)
         todo.completed = !todo.completed;
 }
 
@@ -84,12 +82,12 @@ const generateTodoDOM = todo => {
     });
 
 
-
+    // if (todo.text.length > 0)
+    //     p_todo.textContent = todo.text;
+    // else
+    //     p_todo.textContent = 'empty todo';
     // generate the todo text
-    if (todo.text.length > 0)
-        p_todo.textContent = todo.text;
-    else
-        p_todo.textContent = 'empty todo';
+    p_todo.textContent = todo.text.length > 0 ? todo.text : 'empty todo';
 
     // append text and button
     div_todo.appendChild(p_todo);
@@ -100,10 +98,8 @@ const generateTodoDOM = todo => {
 
 
 const hideComplete = (todos, filters) => {
-    return todos.filter(todo => {
-        // return if the the filter is set to False or the todo is not yet completed
-        return !filters.hideCompleted || !todo.completed;
-    });
+    // return if the the filter is set to False or the todo is not yet completed
+    return todos.filter(todo => !filters.hideCompleted || !todo.completed);
 }
 
 
@@ -115,13 +111,11 @@ const displayTodos = todos => {
 
     filteredTodos.forEach(todo => {
         div_todos.appendChild(generateTodoDOM(todo));
-    })
+    });
 }
 
 
 // filter todos
 function filterText(todos, filters) {
-    return todos.filter(todo => {
-        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
-    });
+    return todos.filter(todo => todo.text.toLowerCase().includes(filters.searchText.toLowerCase()));
 }
