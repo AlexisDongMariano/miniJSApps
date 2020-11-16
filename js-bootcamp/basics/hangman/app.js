@@ -1,5 +1,36 @@
-console.log(undefined);
-console.log(null);
-console.log(String);
-console.log(Number);
-console.log(Boolean);
+// ==============================
+//      UI ELEMENTS
+// ==============================
+// const div_puzzle = document.querySelector(".puzzle");
+const p_puzzle = document.querySelector('#puzzle');
+const p_guesses = document.querySelector('#guesses');
+
+
+// ==============================
+//      GLOBAL FUNCTIONS
+// ==============================
+
+function displayResults() {
+    p_puzzle.textContent = `Puzzle Result: ${game1.getPuzzle()}`;
+    p_guesses.textContent = `Remaining Guesses: ${game1.remainingGuesses}`;
+}
+
+
+// ==============================
+//      EVENT LISTENERS
+// ==============================
+
+const letter = document.addEventListener('keyup', e => {
+    game1.makeGuess(e.key);
+    // displayResults();
+    p_puzzle.textContent = `Puzzle Result: ${game1.getPuzzle()}`;
+    p_guesses.textContent = game1.getStatusMessage();
+});
+
+
+// ==============================
+//      RUNTIME LOGIC
+// ==============================
+
+const game1 = new Hangman('Cat', 2);
+const game2 = new Hangman('New Jersey', 4);
