@@ -11,7 +11,7 @@ const p_guesses = document.querySelector('#guesses');
 // ==============================
 
 function displayResults() {
-    p_puzzle.textContent = `Puzzle Result: ${game1.getPuzzle()}`;
+    p_puzzle.textContent = `Puzzle Result: ${game1.puzzle}`;
     p_guesses.textContent = `Remaining Guesses: ${game1.remainingGuesses}`;
 }
 
@@ -23,8 +23,8 @@ function displayResults() {
 const letter = document.addEventListener('keyup', e => {
     game1.makeGuess(e.key);
     // displayResults();
-    p_puzzle.textContent = `Puzzle Result: ${game1.getPuzzle()}`;
-    p_guesses.textContent = game1.getStatusMessage();
+    p_puzzle.textContent = `Puzzle Result: ${game1.puzzle}`;
+    p_guesses.textContent = game1.statusMessage;
 });
 
 
