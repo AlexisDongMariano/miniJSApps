@@ -32,5 +32,41 @@ const letter = document.addEventListener('keyup', e => {
 //      RUNTIME LOGIC
 // ==============================
 
-const game1 = new Hangman('Cat', 2);
+const game1 = new Hangman('Cat Person', 2);
 const game2 = new Hangman('New Jersey', 4);
+
+getPuzzle((error, puzzle) => {
+    if (error) {
+        console.log(`Error: ${error}`);
+    }
+    else
+        console.log(puzzle);
+});
+
+
+
+
+
+// ==============================
+//      HTTP REQUEST
+// ==============================
+
+
+
+// const countryCode = 'PH';
+// const request_country = new XMLHttpRequest();
+
+// request_country.addEventListener('readystatechange', e => {
+//     if (e.target.readyState === 4 && e.target.status === 200) {
+//         const countries_JSON = JSON.parse(e.target.responseText);
+
+//         const my_country = countries_JSON.find(country => country.alpha2Code === countryCode);
+//         console.log('my country(PH):', my_country.name);
+
+//     } else if (e.target.readyState === 4) {
+//         console.log('error has occurred');
+//     }
+
+// });
+// request_country.open('GET', 'http://restcountries.eu/rest/v2/all');
+// request_country.send();
