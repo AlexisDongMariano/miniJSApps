@@ -35,7 +35,7 @@ const letter = document.addEventListener('keyup', e => {
 const game1 = new Hangman('Cat Person', 2);
 const game2 = new Hangman('New Jersey', 4);
 
-getPuzzle((error, puzzle) => {
+getPuzzle("1", (error, puzzle) => {
     if (error) {
         console.log(`Error: ${error}`);
     }
@@ -44,6 +44,16 @@ getPuzzle((error, puzzle) => {
 });
 
 
+getCountry('PH', (error, country) => {
+    let message = '';
+    error ? message = `Error: ${error}` : message = country;
+    console.log(message);
+    // if (error)
+    //     console.log(`Error: ${error}`);
+    // else
+    //     console.log(country);
+
+});
 
 
 
