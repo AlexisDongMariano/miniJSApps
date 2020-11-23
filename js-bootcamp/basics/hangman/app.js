@@ -56,6 +56,20 @@ getCountry('PH', (error, country) => {
 });
 
 
+const myFunction = () => {
+    const message = 'my message';
+
+    printMessage = () => {
+        console.log(message);
+    };
+
+    return printMessage;
+};
+
+const myPrintMessage = myFunction();
+myPrintMessage;
+
+
 
 // ==============================
 //      HTTP REQUEST
