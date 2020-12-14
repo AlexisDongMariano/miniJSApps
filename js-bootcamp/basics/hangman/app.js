@@ -35,25 +35,29 @@ const letter = document.addEventListener('keyup', e => {
 const game1 = new Hangman('Cat Person', 2);
 const game2 = new Hangman('New Jersey', 4);
 
-getPuzzle("1", (error, puzzle) => {
-    if (error) {
-        console.log(`Error: ${error}`);
-    }
-    else
-        console.log(puzzle);
-});
+getPuzzle('1').then((puzzle) => console.log(puzzle),
+    (err) => console.log(`Error: ${err}`)
+);
+
+getCountry('PH').then((country) => console.log(country), 
+    (err) => console.log(`error: ${err}`)
+);
+
+// CALLBACK implementation
+// getPuzzle("1", (error, puzzle) => {
+//     if (error) {
+//         console.log(`Error: ${error}`);
+//     }
+//     else
+//         console.log(puzzle);
+// });
 
 
-getCountry('PH', (error, country) => {
-    let message = '';
-    error ? message = `Error: ${error}` : message = country;
-    console.log(message);
-    // if (error)
-    //     console.log(`Error: ${error}`);
-    // else
-    //     console.log(country);
-
-});
+// getCountry('PH', (error, country) => {
+//     let message = '';
+//     error ? message = `Error: ${error}` : message = country;
+//     console.log(message);
+// });
 
 
 const myFunction = () => {
