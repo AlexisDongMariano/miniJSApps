@@ -35,15 +35,33 @@ const letter = document.addEventListener('keyup', e => {
 const game1 = new Hangman('Cat Person', 2);
 const game2 = new Hangman('New Jersey', 4);
 
-getPuzzle('1').then((puzzle) => console.log(puzzle),
-    (err) => console.log(`Error: ${err}`)
-);
 
-getCountry('PH').then((country) => console.log(country), 
-    (err) => console.log(`error: ${err}`)
-);
+// =============================================
+//      Fetch API - PROMISE IMPLEMENTATION
+// =============================================
 
-// CALLBACK implementation
+getPuzzle('2').then(puzzle => { // 1) initially, this is data object now it's just a string
+  console.log(puzzle);  // 2) initially, this is data.puzzle to get the string
+}).catch(err => console.log(`Error: ${err}`));
+
+
+// =============================================
+//  XMLHttpResponse - PROMISE IMPLEMENTATION
+// =============================================
+
+// getPuzzle('1').then((puzzle) => console.log(puzzle),
+//     (err) => console.log(`Error: ${err}`)
+// );
+
+// getCountry('PH').then((country) => console.log(country), 
+//     (err) => console.log(`error: ${err}`)
+// );
+
+
+// =============================================
+//  XMLHttpResponse - CALLBACK IMPLEMENTATION
+// =============================================
+
 // getPuzzle("1", (error, puzzle) => {
 //     if (error) {
 //         console.log(`Error: ${error}`);
@@ -59,6 +77,10 @@ getCountry('PH').then((country) => console.log(country),
 //     console.log(message);
 // });
 
+
+// ==============================
+//      CLOSURE EXAMPLE
+// ==============================
 
 const myFunction = () => {
     const message = 'my message';
@@ -79,8 +101,6 @@ myPrintMessage;
 //      HTTP REQUEST
 // ==============================
 
-
-
 // const countryCode = 'PH';
 // const request_country = new XMLHttpRequest();
 
@@ -98,3 +118,21 @@ myPrintMessage;
 // });
 // request_country.open('GET', 'http://restcountries.eu/rest/v2/all');
 // request_country.send();
+
+
+// ==============================
+//  FETCH API IMPLEMENTATION
+// ==============================
+// **no need to worry for readystate as it will resolve or reject when it's ready for us
+
+// fetch('http://puzzle.mead.io/puzzle', {}).then(response => {    // second parameter is optional
+//     if (response.status === 200) {
+//         return response.json(); // this actually returns a promise thus, creating a promise chain
+//     } else {
+//         throw new Error('Unable to fetch puzzle');
+//     }
+// }).then(data => {   // promise chain
+//     console.log(data.puzzle);
+// }).catch(err => console.log(`fetch error: ${err}`));
+
+
