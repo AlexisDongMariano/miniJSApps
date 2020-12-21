@@ -44,6 +44,9 @@ getPuzzle('2').then(puzzle => { // 1) initially, this is data object now it's ju
   console.log(puzzle);  // 2) initially, this is data.puzzle to get the string
 }).catch(err => console.log(`Error: ${err}`));
 
+getCountry('PH').then(country => {
+    console.log(country);
+}).catch(err => console.log(`Error: ${err}`));
 
 // =============================================
 //  XMLHttpResponse - PROMISE IMPLEMENTATION
