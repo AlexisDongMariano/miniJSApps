@@ -22,8 +22,17 @@ const getCountry = countryCode => {
             throw new Error('Unable to return fetch country');
         }
     }).then(data => {
-        my_country = data.find(country => country.alpha2Code === countryCode);
-        return my_country.name;
+        return data.find(country => country.alpha2Code === countryCode);
+    });
+}
+
+const getLocation = () => {
+    return fetch('https://ipinfo.io/json?token=3fba77132b8385', {}).then(response => {
+        if (response.status === 200) {
+            return response.json();
+        } else {
+            throw new Error('Unable to return fetch IP info');
+        }
     });
 }
 
@@ -55,9 +64,9 @@ const getCountry = countryCode => {
 
 //     request_country.addEventListener('readystatechange', e => {
 //         if (e.target.readyState === 4 && e.target.status === 200) {
-//             const countries_JSON = JSON.parse(e.target.responseText);
-//             const my_country = countries_JSON.find(country => country.alpha2Code === countryCode);
-//             resolve(my_country.name);
+//             const data = JSON.parse(e.target.responseText);
+//             const country = countries_JSON.find(country => country.alpha2Code === countryCode);
+//             resolve(country);
 //         } else if (e.target.readyState === 4) {
 //             reject('An error has taken place');
 //         }

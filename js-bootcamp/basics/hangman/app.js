@@ -45,7 +45,21 @@ getPuzzle('2').then(puzzle => { // 1) initially, this is data object now it's ju
 }).catch(err => console.log(`Error: ${err}`));
 
 getCountry('PH').then(country => {
-    console.log(country);
+    console.log(country.name);
+}).catch(err => console.log(`Error: ${err}`));
+
+getLocation().then(ipinfo => {
+    console.log(`Region: ${ipinfo.region}`);
+    console.log(`City: ${ipinfo.city}`);
+    console.log(`Location info: ${ipinfo.loc}`);
+}).catch(err => console.log(`Error: ${err}`));
+
+// Promise chaining example below
+// getCountry fetch () was called inside getLocation fetch ()
+getLocation().then(ipinfo => {
+    return getCountry(ipinfo.country);
+}).then(country => {
+   console.log(country.name) 
 }).catch(err => console.log(`Error: ${err}`));
 
 // =============================================
